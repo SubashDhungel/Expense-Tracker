@@ -1,1 +1,12 @@
+/* Tailwind Directives */
+
 @tailwind utilities;
+
+/* Custom Styles (if needed) */
+body {
+  padding: 0;
+  margin: 0;
+  
+  background-color: rgb(31, 97, 155); /* Example of a custom style */
+  overflow-x: hidden;
+}
