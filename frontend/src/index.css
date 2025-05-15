@@ -17,6 +17,22 @@ body {
 .btn-primary {
   @apply bg-primary border-none h-10 font-sans text-sm hover:bg-primary/70 focus:ring-2 focus:ring-primary text-white font-semibold py-2 px-4 rounded-md w-full;
 }
+
+
+/* Hide number input arrows in Chrome, Safari, Edge */
+
+/* Chrome/Safari/Edge */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+/* Hide number input arrows in Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 /* .bg-red-500{
   background-color: aliceblue;
 } */
