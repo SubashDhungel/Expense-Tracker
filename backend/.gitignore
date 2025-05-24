@@ -1,0 +1,18 @@
+# Node modules – never push this
+node_modules/
+
+# Environment variables – contains secrets
+.env
+
+# Logs and system files
+*.log
+.DS_Store
+Thumbs.db
+
+# OS and editor junk
+.vscode/
+.idea/
+
+# If you use build tools or transpilers
+dist/
+build/

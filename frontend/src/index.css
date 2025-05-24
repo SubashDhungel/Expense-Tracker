@@ -33,6 +33,14 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+/* remove browser's default bg color of form input //Specially chrome  */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #f1f5f9 inset !important; /* Replace with your desired bg colour */
+  -webkit-text-fill-color: #000 !important; /* Optional: sets text colour */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
 /* .bg-red-500{
   background-color: aliceblue;
 } */

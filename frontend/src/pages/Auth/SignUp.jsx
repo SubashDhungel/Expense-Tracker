@@ -28,6 +28,7 @@ const SignUp = () => {
     // Handles login
 
     e.preventDefault();
+    // let profileImageUrl = null;
 
     if (!isEmailValid(email)) {
       setError("Please enter a valid email address");
@@ -42,6 +43,7 @@ const SignUp = () => {
       setError("Passwords do not match.");
       return;
     }
+    // Sign Up API call
   }
 
 
@@ -111,7 +113,7 @@ const SignUp = () => {
             {error ? <p className="opacity-100">{error}</p> : <p className="opacity-0">.</p>}
           </div>
 
-          <button type="submit" className="btn-primary mt-3">
+          <button type="submit" className="btn-primary mt-3 cursor-pointer">
             Sign Up
           </button>
 
