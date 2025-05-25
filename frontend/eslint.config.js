@@ -30,4 +30,18 @@ export default [
       ],
     },
   },
+
+  // a node.js file for commiting changes
+  // Add this override for Node.js files
+  {
+    files: ['commit.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        sourceType: 'module',
+      },
+    },
+  },
+
 ]
