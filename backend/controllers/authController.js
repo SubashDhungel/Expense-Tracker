@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const User = require('../models/User');
 
 // Generate jwt token 
 const generateToken = (id) => {
@@ -8,9 +8,16 @@ const generateToken = (id) => {
     });
 };
 
-/* const { name, email, password } = req.body;
-
+//Register user
+exports.registerUser = async (req, res) => {
+    const { name, email, password, profileImageUrl } = req.body;
+  
+    // validation
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: 'All fields are required !' });
+    }
     try {
+
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -18,36 +25,29 @@ const generateToken = (id) => {
         }
 
         // Create new user
-        const user = await User.create({ name, email, password });
-
+        const user = await User.create({ name, email, password, profileImageUrl });
+       
         // Generate token
-        const token = generateToken(user._id);
-
+        const token = generateToken(user._id);   
         res.status(201).json({
             _id: user._id,
-            name: user.name,
-            email: user.email,
+            user,
             token,
         });
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error registering user:', error);
+        res.status(500).json({ message: 'Server error'});
     }
-*/
-
-
-
-//Register user
-exports.registerUser = async (req, res) => {
    
 };
 
 //Register user
-exports.registerUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
    
 };
 
 //Register user
-exports.registerUser = async (req, res) => {
+exports.getUserInfo = async (req, res) => {
    
 };
 
