@@ -1,6 +1,10 @@
 # Node modules – never push this
 node_modules/
 
+#Commit history – never push this
+commit.js
+
+
 # Environment variables – contains secrets
 .env
 
