@@ -1,10 +1,7 @@
-const PORT = process.env.PORT;
 require('dotenv').config();
+const PORT = process.env.PORT;
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
-
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 
