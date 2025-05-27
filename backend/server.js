@@ -1,6 +1,7 @@
 require('dotenv').config();
 const PORT = process.env.PORT;
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
@@ -23,6 +24,9 @@ app.use(express.json());
 connectDB();
 
 app.use('/api/v1/auth',authRoutes);
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname,"uploads")));
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
