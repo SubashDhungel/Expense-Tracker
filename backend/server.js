@@ -9,7 +9,6 @@ const incomeRoutes = require('./routes/incomeRoutes');
 
 const app = express();
 
-
 // Middleware to handle CORS
 app.use(cors(
     {
