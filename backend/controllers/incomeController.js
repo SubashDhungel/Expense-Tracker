@@ -1,5 +1,6 @@
 const Income = require('../models/Income');
-const User = require('../models/User');
+const xlsx = require('xlsx');
+// const User = require('../models/User');
 
 // Add Income source
 exports.addIncome = async (req, res) => {
@@ -61,8 +62,68 @@ exports.deleteIncome = async (req, res) => {
     }
 
 
-// Delete Income source
+// Download Income source Excel
 
 exports.downloadIncomeExcel = async (req, res) => {
+    const userId = req.user._id;
 
-}
+    try {
+        const incomes = await Income.find({ userId }).sort({ date: -1 });
+
+        if (incomes.length === 0) {
+            return res.status(404).json({ message: 'No income records found' });
+        }
+
+        // Prepare Excel rows
+        const data = incomes.map((income) => ({
+            Date: income.date.toISOString().split('T')[0],
+            Source: income.source,
+            Amount: income.amount,
+            Icon: income.icon,
+        }));
+
+        // Add a total row at the end
+        const totalAmount = data.reduce((sum, row) => sum + row.Amount, 0);
+        data.push({
+            Date: '',
+            Source: 'Total',
+            Amount: totalAmount,
+            Icon: '',
+        });
+
+        // Create a worksheet
+        const worksheet = xlsx.utils.json_to_sheet(data, {
+            header: ['Date', 'Source', 'Amount', 'Icon']
+        });
+
+        // Auto-width for columns
+        const columnWidths = [
+            { wch: 12 },  // Date
+            { wch: 25 },  // Source
+            { wch: 12 },  // Amount
+            { wch: 10 },  // Icon
+        ];
+        worksheet['!cols'] = columnWidths;
+
+        // Create workbook and append the sheet
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, 'Income Report');
+
+        // Create buffer
+        const buffer = xlsx.write(workbook, {
+            type: 'buffer',
+            bookType: 'xlsx'
+        });
+
+        // Set headers
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=Income_Report.xlsx');
+
+        // Send the file
+        res.status(200).send(buffer);
+
+    } catch (error) {
+        console.error('Error generating income Excel:', error);
+        res.status(500).json({ message: 'Server error while generating Excel' });
+    }
+};

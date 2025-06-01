@@ -3,6 +3,7 @@ node_modules/
 
 #Commit history – never push this
 commit.js
+practice.js
 
 
 # Environment variables – contains secrets
