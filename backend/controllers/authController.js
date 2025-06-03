@@ -32,7 +32,7 @@ exports.registerUser = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // set true in production
-            sameSite: 'lax',
+            sameSite: 'strict', // changed from 'lax' to 'strict'
             maxAge: 60 * 60 * 1000 // 1 hour
         });
         res.status(201).json({
@@ -71,7 +71,7 @@ exports.loginUser = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            sameSite: 'strict', // changed from 'lax' to 'strict'
             maxAge: 60 * 60 * 1000
         });
         res.status(200).json({

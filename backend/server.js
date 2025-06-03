@@ -18,6 +18,7 @@ app.use(cors(
         origin: process.env.CLIENT_URL || 'http://localhost:5000',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization'],
+        
         credentials: true, // Allow credentials (cookies)
     }
 ));
