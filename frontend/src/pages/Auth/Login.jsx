@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import Input from '../../components/layouts/Inputs/Input';
 import { isEmailValid, isPasswordValid } from '../../utils/helper';
+import { API_PATHS } from '../../utils/apiPaths';
+import axiosInstance from '../../utils/axiosInstance';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,30 +27,28 @@ const Login = () => {
     }
     
     if (!isPasswordValid(password)) {
-      setError("Password must be 8+ chars with a letter & number.");
-      return;
+      // setError("Password must be 8+ chars with a letter & number.");
+      // return;
     }
 
     // Login API call
-    // try {
-    //   const res = await fetch("http://localhost:5000/api/v1/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   });
-    //   const data = await res.json();
-    //   if (res.status === 200) {
-    //     localStorage.setItem("token", data.token);
-    //     navigate("/dashboard");
-    //   } else {
-    //     // setError(data.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   // setError("Something went wrong");
-    // }
+    try {
+      await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password
+      });
+      // console.log(response)
+      navigate("/dashboard");
+    }catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message || "Login failed. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+      return;
+    }
+
+    
   };
 
   return (

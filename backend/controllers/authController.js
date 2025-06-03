@@ -28,11 +28,17 @@ exports.registerUser = async (req, res) => {
         const user = await User.create({ name, email, password, profileImageUrl });
        
         // Generate token
-        const token = generateToken(user._id);   
+        const token = generateToken(user._id);
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // set true in production
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 1000 // 1 hour
+        });
         res.status(201).json({
             _id: user._id,
             user,
-            token,
+            // token, // Don't send token in body
         });
     } catch (error) {
         console.error('Error registering user:', error);
@@ -62,11 +68,16 @@ exports.loginUser = async (req, res) => {
 
         // Generate token
         const token = generateToken(user._id);
-        
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 1000
+        });
         res.status(200).json({
             _id: user._id,
             user,
-            token,
+            // token, // Don't send token in body
         });
     } catch (error) {
         console.error('Error logging in user:', error);

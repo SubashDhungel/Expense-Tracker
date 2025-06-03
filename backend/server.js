@@ -3,6 +3,7 @@ const PORT = process.env.PORT;
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const incomeRoutes = require('./routes/incomeRoutes');
@@ -14,13 +15,13 @@ const app = express();
 // Middleware to handle CORS
 app.use(cors(
     {
-        // origin: process.env.CLIENT_URL,
-        origin: process.env.CLIENT_URL || '*',
+        origin: process.env.CLIENT_URL || 'http://localhost:5000',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization'],
-        // credentials: true,
+        credentials: true, // Allow credentials (cookies)
     }
 ));
+app.use(cookieParser());
 app.use(express.json());
 
 connectDB();
