@@ -1,17 +1,19 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import Input from '../../components/layouts/Inputs/Input';
 import { isEmailValid, isPasswordValid } from '../../utils/helper';
 import { API_PATHS } from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosInstance';
+import { UserContext } from '../../context/userContext';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { updateUser } = useContext(UserContext);
 
   useEffect(() => {
     setError(null);
@@ -33,11 +35,11 @@ const Login = () => {
 
     // Login API call
     try {
-      await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+      const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password
       });
-      // console.log(response)
+         updateUser(res.data);
       navigate("/dashboard");
     }catch (err) {
       if (err.response && err.response.data.message) {

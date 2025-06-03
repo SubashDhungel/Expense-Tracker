@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate}  from 'react-router-dom';
 import Login from './pages/Auth/Login';
 import SignUp from './pages/Auth/SignUp';
@@ -7,6 +7,7 @@ import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import axiosInstance from './utils/axiosInstance';
 import { API_PATHS } from './utils/apiPaths';
+import UserProvider, { UserContext } from './context/userContext';
 
 const App = () => {
   return (
@@ -28,15 +29,20 @@ const App = () => {
 export default App;
 
 const Root = () => {
-  // Check if user is authenticated by calling backend
-  // This is a simple example, you may want to use context or a hook for real apps
   const [isAuthenticated, setIsAuthenticated] = React.useState(null);
+  const { updateUser, clearUser } = useContext(UserContext);
 
   React.useEffect(() => {
     axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO)
-      .then(() => setIsAuthenticated(true))
-      .catch(() => setIsAuthenticated(false));
-  }, []);
+      .then((res) => {
+        setIsAuthenticated(true);
+        updateUser(res.data); // Set user in context
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+        clearUser(); // Clear user in context
+      });
+  }, [updateUser, clearUser]); // <-- Add these dependencies
 
   if (isAuthenticated === null) return null; // or a loading spinner
 
