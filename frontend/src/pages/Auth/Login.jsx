@@ -82,7 +82,7 @@ const Login = () => {
             {error ? <p className="opacity-100">{error}</p> : <p className="opacity-0">.</p>}
           </div>
 
-          <button type="submit" className="btn-primary mt-3">
+          <button type="submit" className="btn-primary mt-3 cursor-pointer">
             Login
           </button>
           
