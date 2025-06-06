@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/layouts/Inputs/Input';
@@ -6,6 +6,10 @@ import { useEffect } from 'react';
 import ProfilePhotoSelector from '../../components/layouts/Inputs/ProfilePhotoSelector';
 import { isEmailValid, isPasswordValid, doPasswordsMatch } from '../../utils/helper';
 import RedAsterisk from '../../utils/RedAsterisk';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
+import { UserContext } from '../../context/userContext';
+import uploadImage from '../../utils/uploadImage'; // have a utility function for image upload
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -16,19 +20,15 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-  // const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  const { updateUser } = useContext(UserContext);
 
   useEffect(() => {
     setError(null);
-    // setSuccess(null);
   }, [name, email, password, confirmPassword, phoneNumber, address]);
 
   const handleSignUp = async (e) => {
-    // Handles login
-
     e.preventDefault();
-    // let profileImageUrl = null;
 
     if (!isEmailValid(email)) {
       setError("Please enter a valid email address");
@@ -43,9 +43,38 @@ const SignUp = () => {
       setError("Passwords do not match.");
       return;
     }
-    // Sign Up API call
-  }
 
+    try {
+      // Prepare form data for profile image if needed
+      let profileImageUrl = "";
+      if (profilePic) {
+        const imageUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imageUploadRes.imageUrl || "";
+      }
+
+      // Register user (send profileImageUrl if available)
+      await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name,
+        email,
+        // phoneNumber,
+        // address,
+        password,
+        profileImageUrl
+      });
+
+      // Fetch user info after registration and update context
+      const userRes = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+      updateUser(userRes.data);
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message || "Sign up failed. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+      return;
+    }
+  }
 
   return (
     <AuthLayout>
@@ -61,7 +90,7 @@ const SignUp = () => {
               type="text"
               value={name}
               onChange={({ target }) => setName(target.value)}
-              label={<>Full Name :  <RedAsterisk></RedAsterisk> </>}
+              label={<>Full Name :  <RedAsterisk /></>}
 
               placeholder="Nirajan Dhungel"
             />
@@ -70,7 +99,7 @@ const SignUp = () => {
               type="email"
               value={email}
               onChange={({ target }) => setEmail(target.value)}
-              label={<>Email Address :  <RedAsterisk></RedAsterisk> </>}
+              label={<>Email Address :  <RedAsterisk /></>}
 
               placeholder="nirajan@example.com"
             />
@@ -79,7 +108,7 @@ const SignUp = () => {
                 type="password"
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
-                label={<>Password :  <RedAsterisk></RedAsterisk> </>}
+                label={<>Password :  <RedAsterisk /></>}
 
                 placeholder="password"
               />
@@ -88,7 +117,7 @@ const SignUp = () => {
                 type="password"
                 value={confirmPassword}
                 onChange={({ target }) => setConfirmPassword(target.value)}
-                label={<>Confirm Password :  <RedAsterisk></RedAsterisk> </>}
+                label={<>Confirm Password :  <RedAsterisk /></>}
                 placeholder="confirm password"
               />
               <Input

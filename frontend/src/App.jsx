@@ -7,7 +7,7 @@ import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import axiosInstance from './utils/axiosInstance';
 import { API_PATHS } from './utils/apiPaths';
-import UserProvider, { UserContext } from './context/userContext';
+import { UserContext } from './context/UserContext'; // <-- Correct import
 
 const App = () => {
   return (
@@ -42,7 +42,7 @@ const Root = () => {
         setIsAuthenticated(false);
         clearUser(); // Clear user in context
       });
-  }, [updateUser, clearUser]); // <-- Add these dependencies
+  }, [updateUser, clearUser]);
 
   if (isAuthenticated === null) return null; // or a loading spinner
 
