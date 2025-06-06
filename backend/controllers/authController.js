@@ -27,6 +27,10 @@ exports.registerUser = async (req, res) => {
         // Create new user
         const user = await User.create({ name, email, password, profileImageUrl });
        
+        const userWithoutPass = user.toObject();
+        delete userWithoutPass.password; // Remove password from the response
+
+
         // Generate token
         const token = generateToken(user._id);
         res.cookie('token', token, {
@@ -36,8 +40,8 @@ exports.registerUser = async (req, res) => {
             maxAge: 60 * 60 * 1000 // 1 hour
         });
         res.status(201).json({
-            _id: user._id,
-            user,
+            // _id: user._id,
+            userWithoutPass
             // token, // Don't send token in body
         });
     } catch (error) {
@@ -74,9 +78,15 @@ exports.loginUser = async (req, res) => {
             sameSite: 'strict', // changed from 'lax' to 'strict'
             maxAge: 60 * 60 * 1000
         });
+
+        // Remove password from user object before sending response
+        const userWithoutPass = user.toObject();
+        delete userWithoutPass.password; // Remove password from the response
+
+
         res.status(200).json({
-            _id: user._id,
-            user,
+            // _id: user._id,
+            userWithoutPass
             // token, // Don't send token in body
         });
     } catch (error) {
