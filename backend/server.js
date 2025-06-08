@@ -36,5 +36,9 @@ app.use('/api/v1/dashboard',dashboardRoutes);
 app.use('/uploads', express.static(path.join(__dirname,"uploads")));
 
 app.listen(PORT, () => {
+<<<<<<< HEAD
     console.log(`Server is running on port ${PORT}`);
+=======
+    console.log(`Server is running on port ${PORT}`); 
+>>>>>>> 880ffab (On Linux)
 });
