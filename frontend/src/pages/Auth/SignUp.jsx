@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { useNavigate } from 'react-router-dom';
-import Input from '../../components/layouts/Inputs/Input';
+import Input from '../../components/Inputs/Input';
 import { useEffect } from 'react';
-import ProfilePhotoSelector from '../../components/layouts/Inputs/ProfilePhotoSelector';
+import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import { isEmailValid, isPasswordValid, doPasswordsMatch } from '../../utils/helper';
 import RedAsterisk from '../../utils/RedAsterisk';
 import axiosInstance from '../../utils/axiosInstance';
