@@ -97,6 +97,16 @@ exports.loginUser = async (req, res) => {
    
 };
 
+exports.logOutUser = async (req, res) => {
+    res.clearCookie('token',{
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+    });
+    res.status(200).json({ message: 'Logged out successfully' });
+}
+
+
 //Get User Info
 exports.getUserInfo = async (req, res) => {
     try{

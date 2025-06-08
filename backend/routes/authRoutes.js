@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const  {protect}  = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
-const { registerUser, loginUser, getUserInfo } = require('../controllers/authController');
+const { registerUser, loginUser, logOutUser, getUserInfo } = require('../controllers/authController');
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.post('/logout', logOutUser);
 router.get('/getUserInfo',protect, getUserInfo);
 
 router.post('/upload-image', upload.single('image'), (req, res) => {
