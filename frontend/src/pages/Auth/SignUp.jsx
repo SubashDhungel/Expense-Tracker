@@ -8,7 +8,7 @@ import { isEmailValid, isPasswordValid, doPasswordsMatch } from '../../utils/hel
 import RedAsterisk from '../../utils/RedAsterisk';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
-import { UserContext } from '../../context/userContext';
+import { UserContext } from '../../context/UserContext';
 import uploadImage from '../../utils/uploadImage'; // have a utility function for image upload
 
 const SignUp = () => {
