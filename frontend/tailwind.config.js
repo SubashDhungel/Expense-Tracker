@@ -12,6 +12,8 @@ export default {
       colors: {
         primary: '#8c00bf',
         secondary: '#FBBF24',
+        // nav: 'red',
+        nav: '#F0F8FF',
         accent: '#F472B6',
         neutral: '#374151',
         base100: '#FFFFFF',
