@@ -39,7 +39,7 @@ const Login = () => {
         email,
         password
       });
-         updateUser(res.data);
+         updateUser(res.data.userWithoutPass);
       navigate("/dashboard");
     }catch (err) {
       if (err.response && err.response.data.message) {

@@ -4,6 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { useNavigate } from "react-router-dom";
+import CharAvatar from "../Cards/CharAvatar";
 
 const SideMenu = ({ activeMenu }) => {
   const navigate = useNavigate();
@@ -33,7 +34,13 @@ const SideMenu = ({ activeMenu }) => {
             className="w-20 h-20 bg-slate-400 rounded-full"
           />
         ) : (
-          <>hello</>
+          <CharAvatar
+          fullName = {user?.name || ""}
+          width="w-20"
+          height="h-20"
+          style="text-xl"
+          
+          ></CharAvatar>
         )}
         <h5 className="text-gray-950 font-sans font-medium leading-6">{user?.name || ""}</h5>
       </div>

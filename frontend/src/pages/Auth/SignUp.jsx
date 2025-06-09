@@ -63,8 +63,8 @@ const SignUp = () => {
       });
 
       // Fetch user info after registration and update context
-      const userRes = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
-      updateUser(userRes.data);
+      const res = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
+      updateUser(res.data.userWithoutPass || res.data);
       navigate("/dashboard");
     } catch (error) {
       if (error.response && error.response.data.message) {
