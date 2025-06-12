@@ -22,3 +22,10 @@ export const getInitials = (fullName) => {
   }
   return initials;
 };
+
+export function addThousandsSeperator(num) {
+  if (typeof num !== 'number' && typeof num !== 'string') return '';
+  num = Number(num);
+  if (isNaN(num)) return '';
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

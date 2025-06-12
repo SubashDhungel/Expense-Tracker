@@ -11,7 +11,7 @@ const Navbar = ({ activeMenu }) => {
         onClick={() => {
           setOpenSideMenu(!openSideMenu);
         }}
-      >// test
+      >
         {openSideMenu ? (
           <HiOutlineX className="text-2xl" />
         ) : (
