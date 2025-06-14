@@ -9,12 +9,12 @@ const Input = ({ value, onChange, placeholder, label, type }) => {
     
     return (
         <div>
-            <label className="font-sans font-semibold text-[13px] text-slate-600">{label}</label>
+            <label className=" font-semibold text-[13px] text-slate-600">{label}</label>
             <div className="input-box">
                 <input 
                     type={type === 'password' ? (showPassword ? "text" : "password") : type}
                     placeholder={placeholder}
-                    className='font-sans w-full bg-transparent outline-none border-none'
+                    className=' w-full bg-transparent outline-none border-none'
                     value={value}
                     onChange={(e) => onChange(e)} //...is just forwarding the event object to the parent component's onChange handler.
                     required

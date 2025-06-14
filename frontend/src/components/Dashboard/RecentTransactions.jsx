@@ -3,7 +3,7 @@ import { LuArrowRight } from 'react-icons/lu'
 
 const RecentTransactions = (tnx, onSeeMore) => {
   return (
-    <div className="card">
+    <div className="card-shadow-all card  ">
       <div className="flex items-center justify-between">
         <h5 className="text-lg">Recent Transactions</h5>
         <button className="card-btn" onClick={onSeeMore}>See All <LuArrowRight className="text-base" /></button>

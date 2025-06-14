@@ -1,11 +1,16 @@
 /* Tailwind Directives */
 
 @tailwind utilities;
+*{
+  @apply box-border border-none font-sans
+}
 
 /* Custom Styles (if needed) */
 body {
+  /* font-family: sans; */
   padding: 0;
   margin: 0;
+  
   
   /* background-color: rgb(31, 97, 155); Example of a custom style */
   overflow-x: hidden;
@@ -15,7 +20,7 @@ body {
  
 }
 .btn-primary {
-  @apply bg-primary border-none h-10 font-sans text-sm hover:bg-primary/70 focus:ring-2 focus:ring-primary text-white font-semibold py-2 px-4 rounded-md w-full;
+  @apply bg-primary border-none h-10  text-sm hover:bg-primary/70 focus:ring-2 focus:ring-primary text-white font-semibold py-2 px-4 rounded-md w-full;
 }
 
 
@@ -30,6 +35,7 @@ input[type='number']::-webkit-inner-spin-button {
 /* Firefox */
 /* Hide number input arrows in Firefox */
 input[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -51,7 +57,19 @@ input:-webkit-autofill {
     0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-
+.card{
+  @apply bg-white p-6 rounded-2xl;
+}
+.card-btn {
+  @apply flex bg-white items-center gap-2 text-[13px] font-semibold 
+         px-5 py-2 rounded-xl cursor-pointer transition-all duration-300 ease-in-out 
+ shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)]
+         text-purple-700;
+  /* Optional: extra hover lift effect */
+}
+.card-btn:hover {
+  @apply text-[14px];
+}
 
 /* .bg-red-500{
   background-color: aliceblue;

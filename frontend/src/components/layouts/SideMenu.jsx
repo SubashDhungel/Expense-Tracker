@@ -42,7 +42,7 @@ const SideMenu = ({ activeMenu }) => {
           
           ></CharAvatar>
         )}
-        <h5 className="text-gray-950 font-sans font-medium leading-6">{user?.name || ""}</h5>
+        <h5 className="text-gray-950  font-medium leading-6">{user?.name || ""}</h5>
       </div>
 
       {SIDE_MENU_DATA.map((item, index) => {
@@ -50,7 +50,7 @@ const SideMenu = ({ activeMenu }) => {
         return (
           <button
             key={`menu_${index}`}
-            className={`font-sans border-none cursor-pointer w-full flex items-center gap-4 text-[15px] ${
+            className={` border-none cursor-pointer w-full flex items-center gap-4 text-[15px] ${
               activeMenu == item.label ? "text-white bg-primary" : ""
             } py-3 px-6 rounded-lg mb-3`}
             onClick={() => handleClick(item.path )}

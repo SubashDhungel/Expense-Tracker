@@ -5,7 +5,7 @@ const AuthLayout = ({ children }) => {
     return (
         <div className="flex">
             <div className="w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12">
-                <h2 className="font-sans text-lg font-medium text-black" >Expense Tracker</h2>
+                <h2 className=" text-lg font-medium text-black" >Expense Tracker</h2>
                 {children}
             </div>
 
@@ -34,8 +34,8 @@ const StatsInfoCard = ({ icon, label, value, color }) => {
         </div>
         {/* Text section */}
       <div className="">
-        <h6 className="font-sans text-xs text-gray-500 m-0 p-0 leading-tight block">{label}</h6>
-        <span className="font-sans text-[20px] leading-tight">${value}</span>
+        <h6 className=" text-xs text-gray-500 m-0 p-0 leading-tight block">{label}</h6>
+        <span className=" text-[20px] leading-tight">${value}</span>
       </div>
 
      </div>
