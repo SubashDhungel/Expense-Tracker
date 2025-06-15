@@ -5,7 +5,7 @@ import SideMenu from "./SideMenu";
 const Navbar = ({ activeMenu }) => {
   const [ openSideMenu, setOpenSideMenu ] = useState(false);
   return (
-    <div className="flex items-center gap-5 h-[30px] bg-nav border border-b border-gray -200/50 backdrop-blur -[2px] py-4 px-7 sticky top-0 z-50">
+    <div className="flex items-center gap-5 h-[70px] bg-nav border border-b border-gray -200/50 backdrop-blur -[2px] py-4 px-7 sticky top-0 z-50">
       <button
         className="border-none bg-transparent block lg:hidden text-black"
         onClick={() => {
