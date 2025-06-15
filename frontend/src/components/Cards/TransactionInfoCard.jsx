@@ -44,7 +44,7 @@ const TransactionInfoCard = ({
             </button>
           )}
           <div className={`flex items-center gap-2 px-3  rounded-md ${getAmountStyles()}`}>
-            <h6 className="text-xs font-medium"> {type==="income" ? '+':'-'}${amount}</h6>
+            <h6 className="text-xs font-medium py-2 m-0 "> {type==="income" ? '+':'-'}${amount}</h6>
             {type === "income" ? (
               <LuTrendingUp className="text-green-600" />
             ) : (
