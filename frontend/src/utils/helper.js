@@ -29,3 +29,12 @@ export function addThousandsSeperator(num) {
   if (isNaN(num)) return '';
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const prepareExpenseBarChartData = (data=[]) => {
+  const charData = data.map((item) => ({
+    category: item?.category || "Uncategorized",
+    amount: item?.amount || 0,
+
+    }))
+    return charData;
+  }

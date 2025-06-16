@@ -11,6 +11,8 @@ import { IoMdCard } from "react-icons/io";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
+import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
+
 const Home = () => {
   useUserAuth();
   const navigate = useNavigate();
@@ -82,6 +84,10 @@ const Home = () => {
             transactions={dashboardData?.last30days?.transactions || []}
             onSeeMore={() => navigate("/expense")}
           ></ExpenseTransactions>
+          <Last30DaysExpenses
+            data = {dashboardData?.last30days?.transactions || []}
+          ></Last30DaysExpenses>
+
         </div>
       </div>
     </DashboardLayout>
