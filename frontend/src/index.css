@@ -58,7 +58,7 @@ input:-webkit-autofill {
 }
 
 .card{
-  @apply bg-white p-6 rounded-2xl;
+  @apply bg-white p-0 pl-6 pr-6 rounded-2xl;
 }
 .card-btn {
   @apply flex bg-white items-center gap-2 text-[13px] font-semibold 

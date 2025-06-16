@@ -5,7 +5,7 @@ import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
 const RecentTransactions = ({ transaction, onSeeMore }) => {
   return (
-    <div className="card-shadow-all card  ">
+    <div className="card-shadow-all card mt-5  ">
       <div className="flex items-center justify-between">
         <h5 className="text-lg">Recent Transactions</h5>
         <button className="card-btn" onClick={onSeeMore}>
@@ -13,7 +13,7 @@ const RecentTransactions = ({ transaction, onSeeMore }) => {
           <LuArrowRight className="text-base" />
         </button>
       </div>
-      <div className="mt-6">
+      <div className="">
         {transaction?.slice(0, 5).map((item) => (
           <TransactionInfoCard
             key={item._id}

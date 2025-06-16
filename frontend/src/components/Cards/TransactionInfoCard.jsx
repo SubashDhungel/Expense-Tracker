@@ -21,7 +21,7 @@ const TransactionInfoCard = ({
   
 
   return (
-    <div className="group relative flex items-center gap-4 mt-2 p-3 rounded-lg hover:bg-gray-100/60">
+    <div className="group relative flex items-center gap-4 mt-1 p-3 rounded-lg hover:bg-gray-100/60">
       <div className="w-12 h-12 flex items-center justify-center text-xl text-gray-800 rounded-full bg-gray-100">
         {icon && icon !== "" ? (
           <img src={icon} alt={title} className="w-6 h-6" />
@@ -33,7 +33,7 @@ const TransactionInfoCard = ({
       {/* Add transaction info here */}
       <div className="flex-1 flex justify-between items-center">
         <div>
-          <p className="text-sm text-gray-700 font-medium">{title}</p>
+          <p className="text-sm text-gray-700 font-medium m-0 pt-2">{title}</p>
           <p className="text-xs text-gray-400 mt-1">{date}</p>
         </div>
 
@@ -44,7 +44,7 @@ const TransactionInfoCard = ({
             </button>
           )}
           <div className={`flex items-center gap-2 px-3  rounded-md ${getAmountStyles()}`}>
-            <h6 className="text-xs font-medium py-2 m-0 "> {type==="income" ? '+':'-'}${amount}</h6>
+            <h6 className="text-xs font-bold py-2 m-0 "> {type==="income" ? '+':'-'}${amount}</h6>
             {type === "income" ? (
               <LuTrendingUp className="text-green-600" />
             ) : (
