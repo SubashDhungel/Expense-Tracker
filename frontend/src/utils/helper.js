@@ -30,11 +30,33 @@ export function addThousandsSeperator(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export const prepareExpenseBarChartData = (data=[]) => {
-  const charData = data.map((item) => ({
-    category: item?.category || "Uncategorized",
-    amount: item?.amount || 0,
+export const prepareExpenseBarChartData = (data = []) => {
+  const today = new Date();
+  const chartData = [];
 
-    }))
-    return charData;
+  // Step 1: Create last 30 days date list
+  for (let i = 29; i >= 0; i--) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = date.toLocaleString("default", { month: "short" });
+    const label = `${day} ${month}`;
+    chartData.push({ date: label, amount: 0 });
   }
+
+  // Step 2: Sum actual transactions into matching day
+  data.forEach((item) => {
+    const itemDate = new Date(item.date);
+    const day = itemDate.getDate().toString().padStart(2, "0");
+    const month = itemDate.toLocaleString("default", { month: "short" });
+    const label = `${day} ${month}`;
+
+    const index = chartData.findIndex((entry) => entry.date === label);
+    if (index !== -1) {
+      chartData[index].amount += item.amount || 0;
+    }
+  });
+
+  return chartData;
+};
+

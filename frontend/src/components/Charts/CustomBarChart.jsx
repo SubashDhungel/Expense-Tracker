@@ -10,10 +10,27 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-// import CustomTooltip from "./CustomTooltip";
+import CustomBarDiagramTooltip from "./CustomBarDiagramTooltip";
 // import CustomLegend from "./CustomLegend";
 
+
 const CustomBarChart = ({ data }) => {
+
+  const [interval, setInterval] = React.useState(9); // Default interval for XAxis ticks
+
+  React.useEffect(() => {
+  const handleResize = () => {
+    const width = window.innerWidth;
+    if (width >= 1280) setInterval(4); // big screen
+    else if (width >= 768) setInterval(6); // medium
+    else setInterval(9); // small
+  };
+
+  handleResize(); // set initially
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   // Function to get color based on index
   const getBarColor = (index) => (index % 2 === 0 ? "#875cf5" : "cfbefb");
 
@@ -39,19 +56,22 @@ const CustomBarChart = ({ data }) => {
   return (
     <div className="bg-white mt-6">
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+        <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 20 }}>
           <CartesianGrid stroke="none" />
           <XAxis
-            dataKey="month"
-            tick={{ fontSize: 12, fill: "#555" }}
-            stroke="none"
+            dataKey="date"
+            tick={{ fontSize: 12, fill: "#555", dy:15, dx:20 }}
+            stroke="#ccc"
+            interval={interval}
+            // angle={-45}
+            textAnchor="end"
           />
-          <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
-          <Tooltip content={CustomTooltip} />
+          <YAxis tick={{ fontSize: 12, fill: "#555" , dx:-10}} stroke="#ccc" />
+          <Tooltip content={CustomBarDiagramTooltip} />
           <Bar
             dataKey="amount"
             fill="#ff8042"
-            radius={[10, 10, 0, 0]}
+            radius={[0, 0, 0, 0]}
             activeData={{ r: 8, fill: "yellow" }}
             activeStyle={{ fill: "green" }}
           >
