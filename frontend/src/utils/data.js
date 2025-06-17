@@ -12,13 +12,13 @@ export const SIDE_MENU_DATA = [
     icon: LuLayoutDashboard, // ✅ Correct
   },
   {
-    label: "Earnings",
-    path: "/earnings",
+    label: "Income",
+    path: "/income",
     icon: LuHandCoins,
   },
   {
-    label: "Wallet",
-    path: "/wallet",
+    label: "Expense",
+    path: "/expense",
     icon: LuWalletMinimal,
   },
   {
