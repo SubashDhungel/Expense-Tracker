@@ -1,7 +1,6 @@
 import React from "react";
 import CustomPieChart from "../Charts/CustomPieChart";
-const COLORS = ["#8C04AD","#069015","#F31122",
-];
+const COLORS = ["#8C04AD","#069015","#F31122"];
 
 const FinanceOverview = ({
   grossAmount,
@@ -11,19 +10,9 @@ const FinanceOverview = ({
 }) => {
 
   const balanceData=[
-    
-    {
-      name: "Gross Amount",
-      amount: grossAmount,
-    },
-    {
-      name: "Total Income",
-      amount: totalIncome,
-    },
-    {
-      name: "Total Expense",
-      amount: totalExpense,
-    },
+    {name: "Gross Amount", amount: grossAmount},
+    {name: "Total Income",amount: totalIncome},
+    {name: "Total Expense",amount: totalExpense},
   ] 
 
   return <div className= "card-shadow-all card mt-5"> 
@@ -32,10 +21,10 @@ const FinanceOverview = ({
   </div>
   <CustomPieChart
   data={balanceData}
-  label="Gross Amount"
-  grossAmount = {grossAmount}
+  label="Total Balance"
+  totalAmount = {grossAmount}
   colors={COLORS}
-  showTextAnchor
+  showTextAnchor = {false}
   >
 
   </CustomPieChart>

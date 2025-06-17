@@ -8,17 +8,46 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  Customized
 } from "recharts"; // Assuming you're using a library like react-minimal-pie-chart
+
+const renderCustomText = ({ label, totalAmount }) => {
+  return (
+    <>
+      <text
+        x="50%"
+        y="50%"
+        dy={-25}
+        textAnchor="middle"
+        fill="#666"
+        style={{ fontSize: "14px", fontWeight: "bold" }}
+      >
+        {label}
+      </text>
+
+      <text
+        x="50%"
+        y="50%"
+        dy={8}
+        textAnchor="middle"
+        fill="#333"
+        style={{ fontSize: "24px", fontWeight: "600" }}
+      >
+        {totalAmount}
+      </text>
+    </>
+  );
+};
 
 const CustomPieChart = ({
   data,
   label,
-  grossAmount,
+  totalAmount,
   colors,
   showTextAnchor,
 }) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={350}>
       <PieChart>
         <Pie
           data={data}
@@ -28,7 +57,8 @@ const CustomPieChart = ({
           cy="50%"
           outerRadius={130}
           innerRadius={100}
-          labelLine={false}
+          labelLine = {false}
+          // label
         >
           {data.map((entry, index) => (
             <Cell
@@ -40,33 +70,13 @@ const CustomPieChart = ({
         <Tooltip content={CustomTooltip} />
         <Legend content = {CustomLegend}/>
         {showTextAnchor && (
-          <>
-            <text
-              x="50%"
-              y="50%"
-              dy={-25}
-              textAnchor="middle"
-              fill="#666"
-              style={{ fontSize: "14px", fontWeight: "bold" }}
-            >
-              {label}
-            </text>
+          <Customized
+          
 
-            <text
-              x="50%"
-              y="50%"
-              dy={8}
-              textAnchor="middle"
-              fill="#333"
-              style={{ fontSize: "24px", fontWeight: "semi-bold" }}
-            >
-              {grossAmount}
-            </text>
+          component ={()=> renderCustomText({ label, totalAmount })}
 
 
-
-
-          </>
+          />
         )}
       </PieChart>
     </ResponsiveContainer>
