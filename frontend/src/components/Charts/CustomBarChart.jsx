@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Cell,
 } from "recharts";
@@ -30,7 +29,7 @@ const CustomBarChart = ({ data }) => {
 }, []);
 
   // Function to get color based on index
-  const getBarColor = (index) => (index % 2 === 0 ? "#875cf5" : "cfbefb");
+  const getBarColor = (index) => (index % 2 === 0 ? "#875cf5" : "#d42c08");
 
   const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
