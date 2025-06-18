@@ -5,8 +5,10 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import IncomeOverview from "../../components/Income/IncomeOverview";
 import Modal from "../../components/layouts/Modal";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
 const Income = () => {
+   useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
