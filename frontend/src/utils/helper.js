@@ -30,6 +30,8 @@ export function addThousandsSeperator(num) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+
+
 export const prepareExpenseBarChartData = (data = []) => {
   const today = new Date();
   const chartData = [];

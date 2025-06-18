@@ -4,6 +4,8 @@ import { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import IncomeOverview from "../../components/Income/IncomeOverview";
+import Modal from "../../components/layouts/Modal";
+
 const Income = () => {
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ const Income = () => {
   const getAllIncomes = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get(API_PATHS.INCOME.GET_ALL);
+      const response = await axiosInstance.get(API_PATHS.INCOME.GET_INCOME);
       if (response.data) {
         setIncomeData(response.data);
       }
@@ -27,39 +29,15 @@ const Income = () => {
     }
   }
 
+  React.useEffect(() => {
+    getAllIncomes();
+  }
+  , []);
+
   // Handle Add Income
 
 
-  const addIncome = async (incomeData) => {
-    setLoading(true);
-    try {
-      const response = await axiosInstance.post(API_PATHS.INCOME.ADD, incomeData);
-      if (response.data) {
-        setIncomeData((prev) => [...prev, response.data]);
-        setOpenAddIncomeModal({ show: false, data: null });
-      }
-    } catch (error) {
-      console.error("Error adding income:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
-  // Handle Delete Income
-  const deleteIncome = async (incomeId) => {
-    setLoading(true);
-    try {
-      const response = await axiosInstance.delete(`${API_PATHS.INCOME.DELETE}/${incomeId}`);
-      if (response.data) {
-        setIncomeData((prev) => prev.filter((income) => income._id !== incomeId));
-        setOpenDeleteAlert(false);
-      }
-    } catch (error) {
-      console.error("Error deleting income:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
 
   return (
@@ -73,6 +51,16 @@ const Income = () => {
             />
           </div>
         </div>
+
+        <Modal
+        isOpen ={OpenAddIncomeModal}
+        onClose={() => setOpenAddIncomeModal({show:false, data:null})}
+        title = "Add Income"
+        >
+        <div className="">Add Income Form</div>
+
+        </Modal>
+
       </div>
     </DashboardLayout>
   );
