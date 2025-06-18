@@ -10,8 +10,6 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-// import CustomBarDiagramTooltip from "./CustomBarDiagramTooltip";
-// import CustomLegend from "./CustomLegend";
 
 
 const CustomBarChart = ({ data }) => {
