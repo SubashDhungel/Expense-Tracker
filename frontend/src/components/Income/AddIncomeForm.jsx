@@ -31,8 +31,8 @@ const AddIncomeForm = ({onAddIncome}) => {
       <Input 
         vlaue={income.date}
         onChange={({target})=>handleChange('date', target.value)}
-        label="Date"
-        placeholder=""
+        label="Transaction Date"
+        placeholder="Select a date"
         type={"date"}
       />
       <div className=" flex items-center justify-center mt-6">
