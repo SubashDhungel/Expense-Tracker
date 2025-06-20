@@ -76,6 +76,7 @@ input:-webkit-autofill {
 }
 .add-btn-fill{
   @apply bg-green-600 text-white;
+  background-color: rgb(48, 216, 6);
 }
 /* .bg-red-500{
   background-color: aliceblue;

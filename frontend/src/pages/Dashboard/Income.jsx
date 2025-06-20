@@ -6,14 +6,14 @@ import { API_PATHS } from "../../utils/apiPaths";
 import IncomeOverview from "../../components/Income/IncomeOverview";
 import Modal from "../../components/layouts/Modal";
 import { useUserAuth } from "../../hooks/useUserAuth";
-
+import AddIncomeForm from "../../components/Income/AddIncomeForm";
 const Income = () => {
    useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState({show:false, data:null});
 
-  const [OpenAddIncomeModal, setOpenAddIncomeModal] = useState({show:false, data:null});
+  const [OpenAddIncomeModal, setOpenAddIncomeModal] = useState(false);
   
   
   // Get All Incomes
@@ -38,7 +38,7 @@ const Income = () => {
 
   // Handle Add Income
 
-
+const handleAddIncome = async (incomeData) => {}
 
 
 
@@ -56,10 +56,10 @@ const Income = () => {
 
         <Modal
         isOpen ={OpenAddIncomeModal}
-        onClose={() => setOpenAddIncomeModal({show:false, data:null})}
+        onClose={() => setOpenAddIncomeModal(false)}
         title = "Add Income"
         >
-        <div className="">Add Income Form</div>
+        <AddIncomeForm onAddIncome = {handleAddIncome}></AddIncomeForm>
 
         </Modal>
 
