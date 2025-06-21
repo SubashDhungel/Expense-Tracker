@@ -62,3 +62,36 @@ export const prepareExpenseBarChartData = (data = []) => {
   return chartData;
 };
 
+
+
+
+// Amount based green color 
+// Helper to interpolate between two colors
+function interpolateColor(color1, color2, factor) {
+  const result = color1.slice();
+  for (let i = 0; i < 3; i++) {
+    result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+  }
+  return `rgb(${result.join(",")})`;
+}
+
+// Convert hex to RGB array
+function hexToRgb(hex) {
+  hex = hex.replace(/^#/, "");
+  if (hex.length === 3) {
+    hex = hex.split("").map(x => x + x).join("");
+  }
+  const num = parseInt(hex, 16);
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+}
+
+// Get color based on amount
+export const getBarColor = (amount, min, max) => {
+  const darkGreen = hexToRgb("#059669"); // Tailwind emerald-600
+  const lightGreen = hexToRgb("#bbf7d0"); // Tailwind emerald-100
+  // Normalize amount between 0 and 1
+  const factor = max === min ? 1 : (amount - min) / (max - min);
+  // Higher amount = more dark
+  return interpolateColor(lightGreen, darkGreen, factor);
+};
+

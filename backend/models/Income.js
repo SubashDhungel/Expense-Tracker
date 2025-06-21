@@ -8,7 +8,8 @@ const IncomeSchema = new mongoose.Schema({
     },
     icon:{
         type: String,
-        required: true,
+        default: null,  // URL or path to an icon image
+        // required: true,
     },
     source: {
         type: String,  // e.g., salary, business, etc.

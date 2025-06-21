@@ -80,9 +80,7 @@ const Income = () => {
   // Handle Delete Income
   const deleteIncome = async (id) => {
     try{
-      const response = await axiosInstance.delete(
-        `${API_PATHS.INCOME.DELETE_INCOME}/${id}`
-      );
+      const response = await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
       if (response.data) {
         toast.success("Income deleted successfully!");
         setOpenDeleteAlert({ show: false, data: null });
@@ -94,8 +92,6 @@ const Income = () => {
       setOpenDeleteAlert({ show: false, data: null });
       
     }
-    
-
   };
 
   return (
