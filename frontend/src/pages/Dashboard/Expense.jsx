@@ -69,6 +69,26 @@ const Expense = () => {
           toast.error("Failed to add expense. Please try again.");
         }
       };
+
+        const handleDownloadExpense = async () => {};
+
+  // Handle Delete Expense
+  const deleteExpense = async (id) => {
+    try{
+      const response = await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+      if (response.data) {
+        toast.success("Expense deleted successfully!");
+        setOpenDeleteAlert({ show: false, data: null });
+        getAllExpenses(); // Refresh expense data
+      }
+    }catch(error){
+      console.error("Error deleting expense:", error);
+      toast.error("Failed to delete expense. Please try again.");
+      setOpenDeleteAlert({ show: false, data: null });
+      
+    }
+  };
+
     
 
   return (
