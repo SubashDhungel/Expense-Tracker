@@ -14,7 +14,7 @@ const AddIncomeForm = ({onAddIncome}) => {
         [key]: value
     }));
   return (
-    <div>
+    <form onSubmit={(e) =>{ e.preventDefault(); onAddIncome(income)}}>
 
         <EmojiPickerPopup
             icon ={income.icon}
@@ -43,9 +43,9 @@ const AddIncomeForm = ({onAddIncome}) => {
         type={"date"}
       />
       <div className=" flex items-center justify-center mt-6">
-        <button className="add-btn add-btn-fill" onClick={(onAddIncome)}>Add Income</button>
+        <button type="submit" className="add-btn add-btn-fill" >Add Income</button>
       </div>
-    </div>
+    </form>
   )
 }
 

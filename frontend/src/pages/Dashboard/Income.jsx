@@ -7,15 +7,18 @@ import IncomeOverview from "../../components/Income/IncomeOverview";
 import Modal from "../../components/layouts/Modal";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import AddIncomeForm from "../../components/Income/AddIncomeForm";
+import { toast } from "react-hot-toast";
 const Income = () => {
-   useUserAuth();
+  useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [openDeleteAlert, setOpenDeleteAlert] = useState({show:false, data:null});
+  const [openDeleteAlert, setOpenDeleteAlert] = useState({
+    show: false,
+    data: null,
+  });
 
   const [OpenAddIncomeModal, setOpenAddIncomeModal] = useState(false);
-  
-  
+
   // Get All Incomes
   const getAllIncomes = async () => {
     setLoading(true);
@@ -29,18 +32,45 @@ const Income = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     getAllIncomes();
-  }
-  , []);
+  }, []);
 
   // Handle Add Income
 
-const handleAddIncome = async (incomeData) => {}
+  const handleAddIncome = async (incomeData) => {
+    const { source, amount, date, icon } = incomeData;
+    console.log("Adding income:", incomeData);
 
+    // Validate input
+    if (!source || !amount || !date) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+    if (isNaN(amount) || amount <= 0) {
+      toast.error("Please enter a valid amount.");
+      return;
+    }
+    try {
+      const response = await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
+        source,
+        amount,
+        date,
+        icon,
+      });
 
+      if (response.data) {
+        toast.success("Income added successfully!");
+        setOpenAddIncomeModal(false);
+        getAllIncomes(); // Refresh income data
+      }
+    } catch (error) {
+      console.error("Error adding income:", error);
+      toast.error("Failed to add income. Please try again.");
+    }
+  };
 
   return (
     <DashboardLayout activeMenu="Income">
@@ -55,14 +85,12 @@ const handleAddIncome = async (incomeData) => {}
         </div>
 
         <Modal
-        isOpen ={OpenAddIncomeModal}
-        onClose={() => setOpenAddIncomeModal(false)}
-        title = "Add Income"
+          isOpen={OpenAddIncomeModal}
+          onClose={() => setOpenAddIncomeModal(false)}
+          title="Add Income"
         >
-        <AddIncomeForm onAddIncome = {handleAddIncome}></AddIncomeForm>
-
+          <AddIncomeForm onAddIncome={handleAddIncome}></AddIncomeForm>
         </Modal>
-
       </div>
     </DashboardLayout>
   );
