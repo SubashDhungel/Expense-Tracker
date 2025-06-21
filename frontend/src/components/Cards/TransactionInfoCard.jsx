@@ -13,6 +13,7 @@ const TransactionInfoCard = ({
   date,
   type,
   hideDeleteBtn,
+  onDelete,
 }) => {
 
   const getAmountStyles = () => {
@@ -38,13 +39,13 @@ const TransactionInfoCard = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {hideDeleteBtn && (
+          {! hideDeleteBtn && (
             <button className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" >
               <LuTrash2 size={18}></LuTrash2>
             </button>
           )}
           <div className={`flex items-center gap-2 px-3  rounded-md ${getAmountStyles()}`}>
-            <h6 className="text-xs font-bold py-2 m-0 "> {type==="income" ? '+':'-'}${amount}</h6>
+            <h6 className="text-xs font-bold py-2 m-0 "> {type==="income" ? '+':'-'}Rs. {amount}</h6>
             {type === "income" ? (
               <LuTrendingUp className="text-green-600" />
             ) : (
