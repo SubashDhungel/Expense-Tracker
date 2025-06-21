@@ -10,6 +10,7 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { UserContext } from '../../context/UserContext';
 import uploadImage from '../../utils/uploadImage'; // have a utility function for image upload
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -66,11 +67,15 @@ const SignUp = () => {
       const res = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
       updateUser(res.data.userWithoutPass || res.data);
       navigate("/dashboard");
+      // Optionally, show a success message
+      toast.success("Registration successful! Welcome aboard.");
     } catch (error) {
       if (error.response && error.response.data.message) {
         setError(error.response.data.message || "Sign up failed. Please try again.");
+        toast.error("Sign up failed. Please try again.");
       } else {
         setError("An unexpected error occurred. Please try again later.");
+        toast.error("An unexpected error occurred !");
       }
       return;
     }

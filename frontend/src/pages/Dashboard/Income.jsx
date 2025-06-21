@@ -8,6 +8,7 @@ import Modal from "../../components/layouts/Modal";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import AddIncomeForm from "../../components/Income/AddIncomeForm";
 import { toast } from "react-hot-toast";
+import IncomeList from "../../components/Income/IncomeList";
 const Income = () => {
   useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
@@ -82,6 +83,15 @@ const Income = () => {
               onAddIncome={() => setOpenAddIncomeModal(true)}
             />
           </div>
+
+          <IncomeList
+            transactions={incomeData}
+            loading={loading}
+            onDelete={(id) => {
+              setOpenDeleteAlert({ show: true, data: id });
+            }}
+            onDownload={handleDownloadIncome}
+          />
         </div>
 
         <Modal
