@@ -78,20 +78,24 @@ const Income = () => {
   const handleDownloadIncome = async () => {};
 
   // Handle Delete Income
-  const deleteIncome = (id) => async () => {
-    // try {
-    //   const response = await axiosInstance.delete(
-    //     `${API_PATHS.INCOME.DELETE_INCOME}/${id}`
-    //   );
-    //   if (response.data) {
-    //     toast.success("Income deleted successfully!");
-    //     setOpenDeleteAlert({ show: false, data: null });
-    //     getAllIncomes(); // Refresh income data
-    //   }
-    // } catch (error) {
-    //   console.error("Error deleting income:", error);
-    //   toast.error("Failed to delete income. Please try again.");
-    // }
+  const deleteIncome = async (id) => {
+    try{
+      const response = await axiosInstance.delete(
+        `${API_PATHS.INCOME.DELETE_INCOME}/${id}`
+      );
+      if (response.data) {
+        toast.success("Income deleted successfully!");
+        setOpenDeleteAlert({ show: false, data: null });
+        getAllIncomes(); // Refresh income data
+      }
+    }catch(error){
+      console.error("Error deleting income:", error);
+      toast.error("Failed to delete income. Please try again.");
+      setOpenDeleteAlert({ show: false, data: null });
+      
+    }
+    
+
   };
 
   return (
@@ -131,7 +135,7 @@ const Income = () => {
 
           <DeleteAlert 
           content="Are you sure want to delete this Income ? "
-          onDelete={deleteIncome(openDeleteAlert.data)}
+          onDelete={()=>deleteIncome(openDeleteAlert.data)}
           
           ></DeleteAlert>
         </Modal>
