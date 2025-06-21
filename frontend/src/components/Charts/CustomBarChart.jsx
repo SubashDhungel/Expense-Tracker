@@ -38,9 +38,16 @@ const CustomBarChart = ({ data }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white shadow-md p-2 border border-gray-300 m-0 pl-6 pr-6">
-          <p className="txt-xs font-semibold text-purple-800 m-0 p-0">
+          <p className="txt-xs font-semibold text-green-800 m-0 p-0">
+            {/* {payload[0]?.payload?.source} */}
+            {payload[0]?.payload?.source ? ` (${payload[0].payload.source}) `: ""}{" "}
             {label}
           </p>
+
+          {/* <p className="txt-xs font-semibold text-green-800 m-0 p-0">
+            {payload[0].payload.source} 
+          </p>  */}
+
           <p className="text-sm font-medium text-gray-900 m-0 p-0">
             Rs {payload[0].value}
           </p>

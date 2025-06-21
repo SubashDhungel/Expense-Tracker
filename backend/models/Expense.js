@@ -9,7 +9,8 @@ const expenseSchema = new mongoose.Schema({
     },
     icon: {
         type: String,
-        required: true
+        default: null,
+        // required: true
     },
     category: {  // Food, rent, Groceries
         type: String,

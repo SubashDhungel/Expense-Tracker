@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const isEmailValid=(email)=>{
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -43,7 +45,7 @@ export const prepareExpenseBarChartData = (data = []) => {
     const day = date.getDate().toString().padStart(2, "0");
     const month = date.toLocaleString("default", { month: "short" });
     const label = `${day} ${month}`;
-    chartData.push({ date: label, amount: 0 });
+    chartData.push({ date: label, amount: 0, source: '' });
   }
 
   // Step 2: Sum actual transactions into matching day
@@ -56,6 +58,7 @@ export const prepareExpenseBarChartData = (data = []) => {
     const index = chartData.findIndex((entry) => entry.date === label);
     if (index !== -1) {
       chartData[index].amount += item.amount || 0;
+      chartData[index].source += item.source || '';
     }
   });
 
@@ -94,4 +97,27 @@ export const getBarColor = (amount, min, max) => {
   // Higher amount = more dark
   return interpolateColor(lightGreen, darkGreen, factor);
 };
+
+
+export const prepareExpenseLineChartData = (data=[])=>{
+  const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const chartData = sortedData.map((item)=>({
+    month:moment(item?.date).format("Do MMM "),
+    amount : item?.amount,
+    category : item?.category
+  }))
+  return chartData
+
+}
+
+
+// Example: group by month and sum amounts
+// export const  prepareExpenseLineChartData =(transactions)=> {
+//   const grouped = {};
+//   transactions.forEach(tx => {
+//     const month = tx.date.slice(0, 7); // "YYYY-MM"
+//     grouped[month] = (grouped[month] || 0) + tx.amount;
+//   });
+//   return Object.entries(grouped).map(([month, amount]) => ({ month, amount }));
+// }
 
