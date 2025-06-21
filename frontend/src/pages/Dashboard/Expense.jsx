@@ -3,6 +3,7 @@ import useUserAuth from '../../hooks/useUserAuth'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import axiosInstance from '../../utils/axiosInstance'
 import { API_PATHS } from '../../utils/apiPaths'
+import { toast } from 'react-hot-toast'
 import ExpenseOverview from '../../components/Expense/ExpenseOverview'
 import Modal from '../../components/layouts/Modal'
 const Expense = () => {
@@ -16,7 +17,7 @@ const Expense = () => {
   
     const [OpenAddExpenseModal, setOpenAddExpenseModal] = useState(false);
   
-// Get All Incomes
+// Get All Expenses
   const getAllExpenses = async () => {
     setLoading(true);
     try {
@@ -30,6 +31,45 @@ const Expense = () => {
       setLoading(false);
     }
   };
+    React.useEffect(() => {
+      getAllExpenses();
+    }, []);
+
+
+      // Handle Add Expense
+    
+      const handleAddExpense = async (expenseData) => {
+        const { category, amount, date, icon } = expenseData;
+        console.log("Adding expense:", expenseData);
+    
+        // Validate input
+        if (!category || !amount || !date) {
+          toast.error("Please fill in all fields.");
+          return;
+        }
+        if (isNaN(amount) || amount <= 0) {
+          toast.error("Please enter a valid amount.");
+          return;
+        }
+        try {
+          const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
+            category,
+            amount,
+            date,
+            icon,
+          });
+    
+          if (response.data) {
+            toast.success("Expense added successfully!");
+            setOpenAddExpenseModal(false);
+            getAllExpenses(); // Refresh expense data
+          }
+        } catch (error) {
+          console.error("Error adding expense:", error);
+          toast.error("Failed to add expense. Please try again.");
+        }
+      };
+    
 
   return (
     <DashboardLayout activeMenu={'Expense'}>
