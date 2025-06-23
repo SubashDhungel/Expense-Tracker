@@ -1,32 +1,34 @@
-const multer = require('multer');
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-//configure storage
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // specify the directory to save uploaded files
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`); // create a unique filename
-    }
+// ✅ Cloudinary Storage Configuration
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "uploads", // Cloudinary folder
+    allowed_formats: ["jpg", "jpeg", "png"],
+    public_id: (req, file) => `${Date.now()}-${file.originalname.split('.')[0]}`, // custom file naming
+  },
 });
 
-//File filter
-const fieldFilter = (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-    if (allowedTypes.includes(file.mimetype)) {  //file.mimetype: returns the MIME type (e.g., image/jpeg)
-        cb(null, true); // accept the file
-    } else {
-        cb(new Error('Invalid file type. Only JPEG, PNG, and JPG are allowed.'), false); // reject the file
-    }
+// ✅ File Filter (just like yours)
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only JPEG, PNG, and JPG formats are allowed."), false);
+  }
 };
 
+// ✅ Combine it into Multer Config
 const upload = multer({
-    storage: storage,
-    fileFilter: fieldFilter,
-    limits: {
-        fileSize: 1024 * 1024 * 5 // limit file size to 5MB
-    }
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // 5MB limit
+  },
 });
 
 module.exports = upload;

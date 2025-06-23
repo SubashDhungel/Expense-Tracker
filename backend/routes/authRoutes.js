@@ -10,11 +10,15 @@ router.post('/logout', logOutUser);
 router.get('/getUserInfo',protect, getUserInfo);
 
 router.post('/upload-image', upload.single('image'), (req, res) => {
-    if(!req.file) {
-        return res.status(400).json({ message: 'No file uploaded' });
-    }
-    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-    res.status(200).json({ message: 'Image uploaded successfully', imageUrl });
+  if (!req.file || !req.file.path) {
+    return res.status(400).json({ message: 'Upload failed' });
+  }
+
+  res.status(200).json({
+    message: 'Image uploaded successfully',
+    imageUrl: req.file.path, // Cloudinary URL
+  });
 });
+
 
 module.exports = router;
