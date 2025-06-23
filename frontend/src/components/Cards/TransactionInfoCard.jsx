@@ -22,7 +22,7 @@ const TransactionInfoCard = ({
   
 
   return (
-    <div className="group relative flex items-center gap-4 mt-1 p-3 rounded-lg hover:bg-gray-100/60">
+    <div className="group relative flex items-center gap-3 mt-1 py-3 rounded-lg hover:bg-gray-100/60">
       <div className="w-12 h-12 flex items-center justify-center text-xl text-gray-800 rounded-full bg-gray-100">
         {icon && icon !== "" ? (
           <img src={icon} alt={title} className="w-6 h-6" />
@@ -41,7 +41,7 @@ const TransactionInfoCard = ({
         <div className="flex items-center gap-2">
           {! hideDeleteBtn && (
             <button className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onClick={onDelete} >
-              <LuTrash2 size={18}></LuTrash2>
+              <LuTrash2 size={15}></LuTrash2>
             </button>
           )}
           <div className={`flex items-center gap-2 px-3  rounded-md ${getAmountStyles()}`}>

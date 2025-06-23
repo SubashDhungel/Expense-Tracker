@@ -7,10 +7,10 @@ const IncomeList = ({transactions, onDelete, onDownload}) => {
     <div className=" card card-shadow-all">
 
         <div className="flex items-center justify-between">
-            <h5 className="text-lg mb-2">Recent Incomes</h5>
+            <h5 className="text-sm mb-2 md:text-lg">Recent Incomes</h5>
             <button className="card-btn mt-6" onClick= {onDownload}> <LuDownload className='text-base z-index-900'></LuDownload> Download</button>
         </div>
-        <div className=" grid grid-cols-1 md:grid-cols-2  gap-4">
+        <div className=" grid grid-cols-1 md:grid-cols-2  md:gap-4">
             {
             transactions?.map((income, index) => (
                 <TransactionInfoCard

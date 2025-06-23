@@ -9,7 +9,7 @@ const ExpenseList = ({transactions, onDelete, onDownload}) => {
             <h5 className="text-lg mb-2">Expenses</h5>
             <button className="card-btn mt-6" onClick= {onDownload}> <LuDownload className='text-base z-index-900'></LuDownload> Download</button>
         </div>
-        <div className=" grid grid-cols-1 md:grid-cols-2  gap-4">
+        <div className=" grid grid-cols-1 md:grid-cols-2  md:gap-4">
             {
             transactions?.map((expense, index) => (
                 <TransactionInfoCard

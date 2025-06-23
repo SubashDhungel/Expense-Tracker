@@ -6,7 +6,7 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
   return (
     <div className="card-shadow-all card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg mb-2">Recent Expenses</h5>
+        <h5 className="text-sm mb-2 md:text-lg">Recent Expenses</h5>
         <button className="card-btn mt-6" onClick={onSeeMore}>
           See All
           {/* <LuArrowRight className="text-base" /> */}
