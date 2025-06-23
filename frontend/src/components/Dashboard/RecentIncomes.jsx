@@ -14,7 +14,7 @@ const RecentIncomes = ({transactions, onSeeMore}) => {
                 <TransactionInfoCard
                 key = {income._id || index}
                 title={income.source}
-                icon={ ""}
+                icon={ income.icon}
                 date = {moment(income.date).format("MMM DD, YYYY")}
                 amount={income.amount}
                 type="income"

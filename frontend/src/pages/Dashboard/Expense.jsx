@@ -7,6 +7,10 @@ import { toast } from "react-hot-toast";
 import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 import Modal from "../../components/layouts/Modal";
 import AddExpenseForm from "../../components/Expense/AddExpenseForm";
+import ExpenseList from "../../components/Expense/ExpenseList";
+import DeleteAlert from "../../components/layouts/DeleteAlert";
+
+
 const Expense = () => {
   useUserAuth();
   const [expenseData, setExpenseData] = useState([]);
@@ -71,7 +75,28 @@ const Expense = () => {
     }
   };
 
-  const handleDownloadExpense = async () => {};
+  const handleDownloadExpense = async () => {
+    try {
+      const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE, {
+        responseType: "blob",
+      });
+      
+
+      // Create an URL for the blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "expense.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+     
+    } catch (error) {
+      console.error("Error downloading expense:", error);
+      toast.error("Failed to download expense. Please try again.");
+    }
+  };
 
   // Handle Delete Expense
   const deleteExpense = async (id) => {
@@ -80,14 +105,14 @@ const Expense = () => {
         API_PATHS.EXPENSE.DELETE_EXPENSE(id)
       );
       if (response.data) {
-        toast.success("Expense deleted successfully!");
         setOpenDeleteAlert({ show: false, data: null });
         getAllExpenses(); // Refresh expense data
+        toast.success("Expense deleted successfully!");
       }
     } catch (error) {
       console.error("Error deleting expense:", error);
-      toast.error("Failed to delete expense. Please try again.");
       setOpenDeleteAlert({ show: false, data: null });
+      toast.error("Failed to delete expense. Please try again.");
     }
   };
 
@@ -99,8 +124,16 @@ const Expense = () => {
             <ExpenseOverview
               transactions = {expenseData}
               onAddExpense={() => setOpenAddExpenseModal(true)}
-                ></ExpenseOverview>
+                />
           </div>
+
+          <ExpenseList
+            transactions={expenseData}
+            onDelete = {(_id) => setOpenDeleteAlert({ show: true, data: _id })}
+            onDownload = {handleDownloadExpense}
+            />
+
+
         </div>
 
         {/* Add Expense Modal */}
@@ -111,6 +144,17 @@ const Expense = () => {
         >
           <AddExpenseForm
             onAddExpense={handleAddExpense}
+          />
+        </Modal> 
+
+         <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert(false)}
+          title="Delete Expense"
+        >
+          <DeleteAlert
+          content = "Are you sure you want to delete this expense?"
+          onDelete = {() => deleteExpense(openDeleteAlert.data) }
           />
         </Modal> 
       </div>

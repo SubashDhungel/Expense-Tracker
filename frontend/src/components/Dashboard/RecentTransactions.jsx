@@ -14,11 +14,11 @@ const RecentTransactions = ({ transaction, onSeeMore }) => {
         </button>
       </div>
       <div className="">
-        {transaction?.slice(0, 5).map((item) => (
+        {transaction?.slice(0, 4).map((item) => (
           <TransactionInfoCard
             key={item._id}
             title={item.type === "income" ? item.source : item.category}
-            icon=""
+            icon={item.icon}
             amount={item.amount}
             date={moment(item.date).format("MMM DD, YYYY")}
             type={item.type}

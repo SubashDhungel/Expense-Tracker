@@ -78,7 +78,6 @@ exports.downloadExpenseExcel = async (req, res) => {
             Date: expense.date.toISOString().split('T')[0],
             Category: expense.category,
             Amount: expense.amount,
-            Icon: expense.icon,
         }));
 
         // Add a total row at the end
@@ -87,12 +86,11 @@ exports.downloadExpenseExcel = async (req, res) => {
             Date: '',
             Category: 'Total',
             Amount: totalAmount,
-            Icon: '',
         });
 
         // Create a worksheet
         const worksheet = xlsx.utils.json_to_sheet(data, {
-            header: ['Date', 'category', 'Amount', 'Icon']
+            header: ['Date', 'Category', 'Amount']
         });
 
         // Auto-width for columns
@@ -100,7 +98,6 @@ exports.downloadExpenseExcel = async (req, res) => {
             { wch: 12 },  // Date
             { wch: 25 },  // category
             { wch: 12 },  // Amount
-            { wch: 10 },  // Icon
         ];
         worksheet['!cols'] = columnWidths;
 

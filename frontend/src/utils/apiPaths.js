@@ -29,7 +29,7 @@ export const API_PATHS = {
         GET_INCOME: `${BASE_URL}/income/getAll`,
         ADD_INCOME: `${BASE_URL}/income/add`,
         DELETE_INCOME: (id) => `${BASE_URL}/income/delete/${id}`,
-        DOWNLOAD_INCOME: `${BASE_URL}/income/downloadExcel`,
+        DOWNLOAD_INCOME: `${BASE_URL}/income/downloadIncomeExcel`,
     },
 
     // EXPENSE ENDPOINTS
@@ -38,6 +38,6 @@ export const API_PATHS = {
         GET_EXPENSE: `${BASE_URL}/expense/getAll`,
         ADD_EXPENSE: `${BASE_URL}/expense/add`,
         DELETE_EXPENSE: (id) => `${BASE_URL}/expense/delete/${id}`,
-        DOWNLOAD_EXPENSE: `${BASE_URL}/expense/downloadExcel`,
+        DOWNLOAD_EXPENSE: `${BASE_URL}/expense/downloadExpenseExcel`,
     },
 }

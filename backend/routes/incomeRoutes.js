@@ -6,6 +6,6 @@ const {protect} = require('../middleware/authMiddleware');
 router.post('/add', protect, addIncome);
 router.get('/getAll', protect, getAllIncome);
 router.delete('/delete/:id', protect, deleteIncome);
-router.get('/download-excel', protect, downloadIncomeExcel);
+router.get('/downloadIncomeExcel', protect, downloadIncomeExcel);
 
 module.exports = router;
