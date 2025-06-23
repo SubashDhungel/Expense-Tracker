@@ -1,6 +1,14 @@
 import React from "react";
 import CustomPieChart from "../Charts/CustomPieChart";
-const COLORS = ["#875cf5", "#fa2c37", "#Ff6900", "#4f39f6"];
+const COLORS = [
+  "#026440", // Dark green (new first)
+  "#038C3E", // Medium-dark green
+  "#28A745", // Classic green
+  "#6FCF97", // Light green
+  "#A8E6A3", // Lighter green
+  "#C1F0C1"  // Very light green
+];
+
 
 const RecentIncomeWithChart = ({ data, totalIncome }) => {
   const [chartData, setChartData] = React.useState([]);

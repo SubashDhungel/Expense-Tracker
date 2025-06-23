@@ -1,5 +1,5 @@
 import React from "react";
-import { getBarColor } from "../../utils/helper";
+import { interpolateColor, hexToRgb, getBarColor as defaultGetBarColor  } from "../../utils/helper";
 import {
   BarChart,
   Bar,
@@ -11,7 +11,7 @@ import {
   Cell,
 } from "recharts";
 
-const CustomBarChart = ({ data }) => {
+const CustomBarChart = ({ data, colorRange }) => {
   const amounts = data.map((d) => d.amount);
   const min = Math.min(...amounts);
   const max = Math.max(...amounts);
@@ -31,22 +31,29 @@ const CustomBarChart = ({ data }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Function to get color based on index
-  // const getBarColor = (index) => (index % 2 === 0 ? "blue" : "green");
+
+
+    // Use a custom getBarColor if colorRange is provided
+  const getBarColor = (amount, min, max) => {
+    if (colorRange && colorRange.length === 2) {
+      // Use helper's interpolateColor and hexToRgb
+      const color1 = hexToRgb(colorRange[0]);
+      const color2 = hexToRgb(colorRange[1]);
+      const factor = max === min ? 1 : (amount - min) / (max - min);
+      return interpolateColor(color1, color2, factor);
+    }
+    return defaultGetBarColor(amount, min, max);
+  };
+
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white shadow-md p-2 border border-gray-300 m-0 pl-6 pr-6">
           <p className="txt-xs font-semibold text-green-800 m-0 p-0">
-            {/* {payload[0]?.payload?.source} */}
             {payload[0]?.payload?.source ? ` (${payload[0].payload.source}) `: ""}{" "}
             {label}
           </p>
-
-          {/* <p className="txt-xs font-semibold text-green-800 m-0 p-0">
-            {payload[0].payload.source} 
-          </p>  */}
 
           <p className="text-sm font-medium text-gray-900 m-0 p-0">
             Rs {payload[0].value}

@@ -10,7 +10,7 @@ export default {
         sans: ['Outfit', 'Poppins', 'Roboto', 'sans-serif'],
       },
       colors: {
-        primary: '#8c00bf',
+        primary:'#4F46E5',
         secondary: '#FBBF24',
         // nav: 'red',
         nav: '#F0F8FF',

@@ -57,14 +57,14 @@ const Home = () => {
             icon={<LuWalletMinimal />}
             label="Total Income"
             value={addThousandsSeperator(dashboardData?.totalIncomeAmt || 0)}
-            color="bg-green-600"
+            color="bg-green"
           />
 
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Expense"
             value={addThousandsSeperator(dashboardData?.totalExpenseAmt || 0)}
-            color="bg-red-600"
+            color="bg-danger"
           />
         </div>
 
@@ -91,7 +91,7 @@ const Home = () => {
           />
 
            <RecentIncomeWithChart
-            data={dashboardData?.last60days?.transactions.slice(0, 5) || []}
+            data={dashboardData?.last60days?.transactions || []}
             totalIncome={dashboardData?.totalIncomeAmt || 0}
           /> 
 

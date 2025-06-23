@@ -97,3 +97,13 @@ input:-webkit-autofill {
 /* .bg-red-500{
   background-color: aliceblue;
 } */
+
+.bg-primary{
+  background-color: rgb(0, 0, 230);
+}
+.bg-green{
+  background-color: rgb(39, 170, 6);
+}
+.bg-danger{
+  background-color: rgb(206, 5, 5);
+}

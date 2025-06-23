@@ -70,7 +70,7 @@ export const prepareExpenseBarChartData = (data = []) => {
 
 // Amount based green color 
 // Helper to interpolate between two colors
-function interpolateColor(color1, color2, factor) {
+export function interpolateColor(color1, color2, factor) {
   const result = color1.slice();
   for (let i = 0; i < 3; i++) {
     result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
@@ -79,7 +79,7 @@ function interpolateColor(color1, color2, factor) {
 }
 
 // Convert hex to RGB array
-function hexToRgb(hex) {
+export function hexToRgb(hex) {
   hex = hex.replace(/^#/, "");
   if (hex.length === 3) {
     hex = hex.split("").map(x => x + x).join("");
@@ -109,6 +109,21 @@ export const prepareExpenseLineChartData = (data=[])=>{
   return chartData
 
 }
+
+export const  rgbToHex = (r, g, b)=> {
+  // Clamp values to stay between 0 and 255
+  const clamp = (val) => Math.max(0, Math.min(255, val));
+
+  // Convert each value to 2-digit hex and join them
+  return (
+    '#' +
+    [clamp(r), clamp(g), clamp(b)]
+      .map((val) => val.toString(16).padStart(2, '0'))
+      .join('')
+      .toUpperCase()
+  );
+}
+
 
 
 // Example: group by month and sum amounts

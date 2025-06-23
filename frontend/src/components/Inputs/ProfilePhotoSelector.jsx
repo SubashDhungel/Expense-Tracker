@@ -57,13 +57,13 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
 
             {/* If no image is selected, show default icon with upload button */}
             {!image ? (
-                <div className="w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative">
+                <div className="w-20 h-20 flex items-center justify-center bg-blue-200 rounded-full relative">
                     {/* Default profile icon */}
-                    <LuUser className='text-4xl text-primary' />
+                    <LuUser className='text-4xl text-blue-800' />
 
                     {/* Upload button, positioned at bottom right of icon */}
                     <button
-                        className='w-8 h-8 flex items-center justify-center bg-purple-500 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer'
+                        className='w-8 h-8 flex items-center justify-center bg-blue-700 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer'
                         onClick={chooseFile}  // Opens the file picker
                     >
                         <LuUpload />
@@ -71,7 +71,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
                 </div>
             ) : (
                 // If image is selected, show image preview and remove button
-                <div className="w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative">
+                <div className="w-20 h-20 flex items-center justify-center bg-blue-100 rounded-full relative">
                     {/* Display selected image as a circle */}
                     <img
                         src={previewUrl}               // Temporary URL created for preview
