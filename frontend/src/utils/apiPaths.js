@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://localhost:8000/api/v1';
+// export const BASE_URL = 'http://localhost:8000/api/v1';
+export const BASE_URL =  'https://expense-tracker-pzej.onrender.com/api/v1'
 
 export const API_PATHS = {
     // AUTHENTICATION ENDPOINTS
