@@ -4,9 +4,10 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5000, // <--- This sets the frontend port
-    historyApiFallback: true, // tells server to fallback to index.html
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
   },
-  appType: 'spa', // <-- Add this for Vite 4+ to ensure SPA fallback
+  appType: 'spa', // This helps with SPA routing behavior
+  base: './', // Important for correct asset paths
 })
