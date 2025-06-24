@@ -33,9 +33,9 @@ exports.registerUser = async (req, res) => {
     const token = generateToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // ✅ Required for HTTPS
-      sameSite: "none", // ✅ Required for cross-site cookies
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(201).json({
       // _id: user._id,
