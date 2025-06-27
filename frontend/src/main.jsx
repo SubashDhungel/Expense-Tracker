@@ -4,9 +4,13 @@ import './index.css'
 import App from './App.jsx'
 import UserProvider from './context/UserProvider'; // <-- Correct import
 import { Toaster } from 'react-hot-toast';
+import { ProgressBarProvider } from './context/ProgressBarContext.jsx';
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
+      <ProgressBarProvider >
       <App />
       <Toaster
         toastOptions={{
@@ -19,6 +23,7 @@ createRoot(document.getElementById('root')).render(
             fontSize: '14px',
           },}}
           ></Toaster>
+          </ProgressBarProvider>
     </UserProvider>
   </StrictMode>,
 )

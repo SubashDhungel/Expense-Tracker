@@ -1,4 +1,6 @@
 import React from "react";
+import { useProgressBar } from "../../context/ProgressBarContext";
+
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layouts/AuthLayout";
@@ -13,6 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { startProgress, stopProgress } = useProgressBar();
   const navigate = useNavigate();
   const { updateUser } = useContext(UserContext);
 
@@ -23,6 +26,7 @@ const Login = () => {
   // Handles login
   const handleLogin = async (e) => {
     e.preventDefault();
+          // Start progress bar
 
     if (!isEmailValid(email)) {
       setError("Please enter a valid email address");
@@ -36,6 +40,8 @@ const Login = () => {
 
     // Login API call
     try {
+      startProgress();
+
       const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password,
@@ -44,6 +50,7 @@ const Login = () => {
       navigate("/dashboard");
       toast.success("Login successful! ");
     } catch (err) {
+      stopProgress();
       if (err.response && err.response.data.message) {
         setError(
           err.response.data.message || "Login failed. Please try again."
@@ -51,10 +58,14 @@ const Login = () => {
         toast.error( "Login failed. Please try again.");
 
       } else {
+        
         setError("An unexpected error occurred. Please try again later.");
         toast.error("An unexpected error occurred !");
       }
       return;
+    }finally{
+      // stopProgress();
+
     }
   };
 

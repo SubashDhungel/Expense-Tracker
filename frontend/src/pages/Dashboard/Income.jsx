@@ -10,10 +10,12 @@ import AddIncomeForm from "../../components/Income/AddIncomeForm";
 import { toast } from "react-hot-toast";
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/layouts/DeleteAlert";
+import { useProgressBar } from "../../context/ProgressBarContext";
 
 const Income = () => {
   useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
+  const { startProgress, stopProgress } = useProgressBar();
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show: false,
@@ -34,6 +36,7 @@ const Income = () => {
       console.error("Error fetching income data:", error);
     } finally {
       setLoading(false);
+      stopProgress();
     }
   };
 

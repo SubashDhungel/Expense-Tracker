@@ -107,3 +107,32 @@ input:-webkit-autofill {
 .bg-danger{
   background-color: rgb(206, 5, 5);
 }
+
+
+
+/* style of progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: transparent;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background-color: #FF0000; /* YouTube red */
+  transition: width 0.2s ease-out; /* Smoother transition */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+  transform-origin: left;
+  animation: pulse 1.5s infinite; /* Subtle pulse effect */
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}

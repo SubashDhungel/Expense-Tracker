@@ -11,8 +11,10 @@ import { API_PATHS } from '../../utils/apiPaths';
 import { UserContext } from '../../context/UserContext';
 import uploadImage from '../../utils/uploadImage'; // have a utility function for image upload
 import toast from 'react-hot-toast';
+import { useProgressBar } from "../../context/ProgressBarContext";
 
 const SignUp = () => {
+    const { startProgress, stopProgress } = useProgressBar();
   const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,6 +48,7 @@ const SignUp = () => {
     }
 
     try {
+      startProgress();
       // Prepare form data for profile image if needed
       let profileImageUrl = "";
       if (profilePic) {
@@ -70,6 +73,8 @@ const SignUp = () => {
       // Optionally, show a success message
       toast.success("Registration successful! Welcome aboard.");
     } catch (error) {
+      stopProgress();
+
       if (error.response && error.response.data.message) {
         setError(error.response.data.message || "Sign up failed. Please try again.");
         toast.error("Sign up failed. Please try again.");

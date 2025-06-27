@@ -5,22 +5,29 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { useNavigate } from "react-router-dom";
 import CharAvatar from "../Cards/CharAvatar";
+import { useProgressBar } from "../../context/ProgressBarContext";
 
 const SideMenu = ({ activeMenu }) => {
+    const { startProgress, stopProgress } = useProgressBar();
+  
   const navigate = useNavigate();
   const { user, clearUser } = useContext(UserContext);
 
   const handleLogout = async () => {
     try {
+      startProgress();
+
       await axiosInstance.post(API_PATHS.AUTH.LOGOUT);
       clearUser(); // clear context or state
       navigate("/login"); // go to login page
+      stopProgress()
     } catch (err) {
       console.error("Logout failed:", err);
     }
   };
 
   const handleClick = (route) => {
+      startProgress();
     route === "/logout" ? handleLogout() : navigate(route);
   };
 

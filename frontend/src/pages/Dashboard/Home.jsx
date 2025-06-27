@@ -14,7 +14,10 @@ import ExpenseTransactions from "../../components/Dashboard/RecentExpenses";
 import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncomes from "../../components/Dashboard/RecentIncomes";
+import { useProgressBar } from "../../context/ProgressBarContext";
+
 const Home = () => {
+  const { startProgress, stopProgress } = useProgressBar();
   useUserAuth();
   const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState(null);
@@ -36,6 +39,7 @@ const Home = () => {
       } finally {
         setLoading(false);
         hasFetchedRef.current = true;
+        stopProgress();
       }
     };
 
@@ -85,23 +89,20 @@ const Home = () => {
             transactions={dashboardData?.last30days?.transactions || []}
             onSeeMore={() => navigate("/expense")}
           />
-         
+
           <Last30DaysExpenses
-            data = {dashboardData?.last30days?.transactions || []}
+            data={dashboardData?.last30days?.transactions || []}
           />
 
-           <RecentIncomeWithChart
+          <RecentIncomeWithChart
             data={dashboardData?.last60days?.transactions || []}
             totalIncome={dashboardData?.totalIncomeAmt || 0}
-          /> 
-
-          <RecentIncomes
-          transactions={dashboardData?.last60days?.transactions || []}
-          onSeeMore={() => navigate("/income")}
-          
           />
 
-
+          <RecentIncomes
+            transactions={dashboardData?.last60days?.transactions || []}
+            onSeeMore={() => navigate("/income")}
+          />
         </div>
       </div>
     </DashboardLayout>

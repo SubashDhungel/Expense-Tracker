@@ -9,10 +9,12 @@ import Modal from "../../components/layouts/Modal";
 import AddExpenseForm from "../../components/Expense/AddExpenseForm";
 import ExpenseList from "../../components/Expense/ExpenseList";
 import DeleteAlert from "../../components/layouts/DeleteAlert";
+import { useProgressBar } from "../../context/ProgressBarContext";
 
 
 const Expense = () => {
   useUserAuth();
+  const { startProgress, stopProgress } = useProgressBar();
   const [expenseData, setExpenseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
@@ -34,6 +36,8 @@ const Expense = () => {
       console.error("Error fetching expense data:", error);
     } finally {
       setLoading(false);
+        stopProgress();
+
     }
   };
   React.useEffect(() => {
