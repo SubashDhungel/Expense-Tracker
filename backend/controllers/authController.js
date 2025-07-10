@@ -87,8 +87,7 @@ exports.loginUser = async (req, res) => {
       // token, // Don't send token in body
     });
   } catch (error) {
-    console.error("Error logging in user:", error);
-    res.status(500).json({ message: "Server error" });
+    return
   }
 };
 
