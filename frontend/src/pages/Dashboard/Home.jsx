@@ -81,7 +81,7 @@ const Home = () => {
           <FinanceOverview
             totalIncome={dashboardData?.totalIncomeAmt || 0}
             totalExpense={dashboardData?.totalExpenseAmt || 0}
-            grossAmount={dashboardData?.grossAmt || 0}
+            grossAmount={dashboardData?.grossAmt }
             onSeeMore={() => navigate("/expense")}
           />
 

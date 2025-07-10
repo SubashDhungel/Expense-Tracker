@@ -2,6 +2,7 @@ import React from "react";
 import { LuArrowRight } from "react-icons/lu";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 import moment from "moment";
+import NoDataMessage from "../Cards/NoDataMessage";
 const ExpenseTransactions = ({ transactions, onSeeMore }) => {
   return (
     <div className="card-shadow-all card">
@@ -12,6 +13,7 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
           {/* <LuArrowRight className="text-base" /> */}
         </button>
       </div>
+      {transactions.length ===0 ? (<NoDataMessage message='No Recent Transactions'/>):(
       <div className="">
         {transactions?.slice(0,5).map((expense, index) => (
           <TransactionInfoCard
@@ -25,6 +27,7 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
           />
         ))}
       </div>
+      )}
     </div>
   );
 };
