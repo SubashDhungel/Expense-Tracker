@@ -10,11 +10,6 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
 
     // Called whenever the user selects a file from the file picker
     const handleImageChange = (event) => {
-    // Access the first file the user selected
-    
-    //      event is the SyntheticEvent triggered by the onChange.
-    //      event.target is the input element(i.e. < input type = "file" >).
-    //      event.target.files is a list of the selected files(even though we usually just use the first one: [0]).
         const file = event.target.files[0];
 
         if (file) {
@@ -63,6 +58,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
 
                     {/* Upload button, positioned at bottom right of icon */}
                     <button
+                        type='button' // Ensures this button does not submit a form
                         className='w-8 h-8 flex items-center justify-center bg-blue-700 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer'
                         onClick={chooseFile}  // Opens the file picker
                     >
@@ -81,6 +77,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
 
                     {/* Button to remove the selected image */}
                     <button
+                        type='button' // Ensures this button does not submit a form
                         className='w-8 h-8 flex items-center justify-center bg-red-600 text-white rounded-full absolute -bottom-1 -right-1 border-none cursor-pointer'
                         onClick={handleRemoveImage}  // Clears image and preview
                     >
