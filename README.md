@@ -1,16 +1,14 @@
 #  Expense Tracker
 
 A full-stack Expense Tracker web app built with **React**, **Tailwind CSS**, **Node.js**, **Express.js**, and **MongoDB Atlas**.  
-It allows users to **track their income and expenses**, view their transaction history, and analyse their balance in real-time.
 
 ---
 
 ## Features
 
 - 📥 Add income and expenses
-- 📤 Delete transactions
-- 📊 Real-time balance update
-- 🧾 View transaction history
+- 📤 Delete/ Download transactions
+- 🧾 View transaction history in charts
 - 💻 Full-stack integration (MongoDB Atlas + Express API + React Frontend)
 - 🎨 Responsive UI built with Tailwind CSS
 
