@@ -10,7 +10,6 @@ A full-stack Expense Tracker web app built with **React**, **Tailwind CSS**, **N
 - 📤 Delete/ Download transactions
 - 🧾 View transaction history in charts
 - 💻 Full-stack integration (MongoDB Atlas + Express API + React Frontend)
-- 🎨 Responsive UI built with Tailwind CSS
 
 ---
 
